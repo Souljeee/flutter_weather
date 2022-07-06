@@ -1,45 +1,38 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/cubit/weather_cubit.dart';
-import 'package:weather_app/repository.dart';
-import 'package:weather_app/widgets/weather_item_horizontal_widget.dart';
 
-import '../model/future_weather_model/future_weather.dart';
-import '../widgets/weather_item_vertical_widget.dart';
+import '../../cubit/weather_cubit.dart';
+import '../../data/data_sources/repository.dart';
+import '../../data/future_weather_model/future_weather.dart';
+import 'weather_page_widgets/weather_item_horizontal_widget.dart';
+import 'weather_page_widgets/weather_item_vertical_widget.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class WeatherPage extends StatelessWidget {
+  const WeatherPage({Key? key}) : super(key: key);
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: BlocProvider(
-        create: (context) => WeatherCubit(WeatherRepository()),
-        child: const Scaffold(
-          backgroundColor: Colors.indigo,
-          body: SafeArea(
-            child: WeatherPage(),
-          ),
+    return BlocProvider(
+      create: (context) => WeatherCubit(WeatherRepository()),
+      child: const Scaffold(
+        backgroundColor: Colors.indigo,
+        body: SafeArea(
+          child: _WeatherPageContent(),
         ),
       ),
     );
   }
 }
 
-class WeatherPage extends StatefulWidget {
-  const WeatherPage({Key? key}) : super(key: key);
+class _WeatherPageContent extends StatefulWidget {
+  const _WeatherPageContent({Key? key}) : super(key: key);
 
   @override
-  State<WeatherPage> createState() => _WeatherPageState();
+  State<_WeatherPageContent> createState() => _WeatherPageContentState();
 }
 
-class _WeatherPageState extends State<WeatherPage> {
+class _WeatherPageContentState extends State<_WeatherPageContent> {
   @override
   void initState() {
     super.initState();
@@ -104,15 +97,15 @@ class CurrentWeatherInfoWidget extends StatelessWidget {
       children: [
         Text(
           cityName,
-          style: TextStyle(fontSize: 25, color: Colors.white),
+          style: const TextStyle(fontSize: 25, color: Colors.white),
         ),
         Text(
           temp.toString(),
-          style: TextStyle(fontSize: 60, color: Colors.white),
+          style: const TextStyle(fontSize: 60, color: Colors.white),
         ),
         Text(
           weatherDescription,
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
       ],
     );

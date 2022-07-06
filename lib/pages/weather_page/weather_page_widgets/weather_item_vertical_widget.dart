@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/future_weather_model/future_weather.dart';
+import '../../../data/future_weather_model/future_weather.dart';
 
 class WeatherItemVerticalWidget extends StatelessWidget {
   final FutureWeatherInfo weatherItem;

@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:weather_app/model/current_weather_model/weather_dto.dart';
-import 'package:weather_app/model/future_weather_model/weather_future_dto.dart';
-import 'package:weather_app/repository.dart';
+import 'package:weather_app/data/data_sources/repository.dart';
 
-import '../model/current_weather_model/weather.dart';
-import '../model/future_weather_model/future_weather.dart';
-import '../model/future_weather_model/weather_list.dart';
+import '../data/current_weather_model/weather.dart';
+import '../data/current_weather_model/weather_dto.dart';
+import '../data/future_weather_model/future_weather.dart';
+import '../data/future_weather_model/weather_future_dto.dart';
+import '../data/future_weather_model/weather_list.dart';
 
 part 'weather_state.dart';
 

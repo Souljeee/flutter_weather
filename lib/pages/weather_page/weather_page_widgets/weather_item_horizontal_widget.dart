@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/model/future_weather_model/future_weather.dart';
+
+import '../../../data/future_weather_model/future_weather.dart';
 
 //Ссылка на иконку
 //https://openweathermap.org/img/wn/04d@2x.png
