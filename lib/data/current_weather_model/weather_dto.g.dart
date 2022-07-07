@@ -12,6 +12,7 @@ WeatherDTO _$WeatherDTOFromJson(Map<String, dynamic> json) => WeatherDTO(
           .toList(),
       MainInfo.fromJson(json['main'] as Map<String, dynamic>),
       json['name'] as String,
+      CountryInformation.fromJson(json['sys'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$WeatherDTOToJson(WeatherDTO instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$WeatherDTOToJson(WeatherDTO instance) =>
       'weather': instance.weatherInfo,
       'main': instance.main,
       'name': instance.name,
+      'sys': instance.country,
     };

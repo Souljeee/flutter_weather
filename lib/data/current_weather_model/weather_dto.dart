@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather_app/data/current_weather_model/weather_info.dart';
 
+import 'country_information.dart';
 import 'main_info.dart';
 
 part 'weather_dto.g.dart';
@@ -14,7 +15,10 @@ class WeatherDTO {
 
   String name;
 
-  WeatherDTO(this.weatherInfo, this.main, this.name);
+  @JsonKey(name: "sys")
+  CountryInformation country;
+
+  WeatherDTO(this.weatherInfo, this.main, this.name, this.country);
 
   factory WeatherDTO.fromJson(Map<String, dynamic> json) =>
       _$WeatherDTOFromJson(json);

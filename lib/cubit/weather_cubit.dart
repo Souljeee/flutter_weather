@@ -45,7 +45,7 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   Weather _convertToWeather(WeatherDTO response) {
     return Weather(response.name, response.main.temp.round(),
-        response.weatherInfo[0].description);
+        response.weatherInfo[0].description, response.country.country);
   }
 
   FutureWeatherInfo _convertToFutureWeather(WeatherFutureDTO response) {
