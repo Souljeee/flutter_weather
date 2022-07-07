@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/current_weather_model/weather.dart';
-
 class WeatherCard extends StatelessWidget {
-  final Weather item;
+  //final Weather item;
 
-  const WeatherCard({Key? key, required this.item}) : super(key: key);
+  const WeatherCard({
+    Key? key,
+    //required this.item,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,8 @@ class WeatherCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16, top: 4),
                   child: Text(
-                    item.cityName,
+                    //item.cityName,
+                    "London",
                     style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.w700,
@@ -35,7 +37,8 @@ class WeatherCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 16, bottom: 4),
                   child: Text(
-                    item.description,
+                    //item.description,
+                    "Sunny",
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -50,7 +53,8 @@ class WeatherCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                _calculateCelsius(item.temperature).toString(),
+                //_calculateCelsius(item.temperature).toString(),
+                "30",
                 style: const TextStyle(
                   fontSize: 40,
                   color: Colors.white,

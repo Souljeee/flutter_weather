@@ -52,32 +52,43 @@ class _SearchWidgetState extends State<SearchWidget> {
               if (state is SearchWidgetSuccess) {
                 List<Weather> cityList = state.cityWeatherList;
                 return Expanded(
-                  child: ListView.separated(
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(
-                      color: Colors.white,
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: ListView.separated(
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(
+                        color: Colors.white,
+                      ),
+                      itemCount: cityList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return SearchCityInfo(item: cityList[index]);
+                      },
                     ),
-                    itemCount: cityList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return SearchCityInfo(item: cityList[index]);
-                    },
                   ),
                 );
               } else if (state is SearchWidgetLoading) {
-                return const Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: CircularProgressIndicator(
-                    color: Colors.grey,
+                return const Expanded(
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.grey,
+                      ),
+                    ),
                   ),
                 );
               } else if (state is SearchWidgetNothingFound) {
-                return const Padding(
-                  padding: EdgeInsets.only(top: 30),
-                  child: Text(
-                    "Ничего не найдено",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
+                return const Expanded(
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Center(
+                      child: Text(
+                        "Ничего не найдено",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                   ),
                 );
