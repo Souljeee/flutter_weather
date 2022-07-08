@@ -3,22 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/weather_cubit.dart';
-import '../../data/data_sources/repository.dart';
+import '../../data/data_sources/repository_remote.dart';
 import '../../data/future_weather_model/future_weather.dart';
 import 'weather_page_widgets/weather_item_horizontal_widget.dart';
 import 'weather_page_widgets/weather_item_vertical_widget.dart';
 
 class WeatherPage extends StatelessWidget {
-  const WeatherPage({Key? key}) : super(key: key);
+  final String lat;
+  final String lon;
+
+  const WeatherPage({
+    Key? key,
+    required this.lat,
+    required this.lon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WeatherCubit(WeatherRepository()),
-      child: const Scaffold(
+      create: (context) => WeatherCubit(WeatherRepositoryRemote()),
+      child: Scaffold(
         backgroundColor: Colors.indigo,
         body: SafeArea(
-          child: _WeatherPageContent(),
+          child: _WeatherPageContent(
+            lat: lat,
+            lon: lon,
+          ),
         ),
       ),
     );
@@ -26,7 +36,14 @@ class WeatherPage extends StatelessWidget {
 }
 
 class _WeatherPageContent extends StatefulWidget {
-  const _WeatherPageContent({Key? key}) : super(key: key);
+  final String lat;
+  final String lon;
+
+  const _WeatherPageContent({
+    Key? key,
+    required this.lat,
+    required this.lon,
+  }) : super(key: key);
 
   @override
   State<_WeatherPageContent> createState() => _WeatherPageContentState();
@@ -37,7 +54,7 @@ class _WeatherPageContentState extends State<_WeatherPageContent> {
   void initState() {
     super.initState();
     final weatherCubit = BlocProvider.of<WeatherCubit>(context);
-    weatherCubit.getWeather();
+    weatherCubit.getWeather(widget.lat, widget.lon);
   }
 
   @override

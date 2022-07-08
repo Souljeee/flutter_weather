@@ -96,6 +96,9 @@ class _SearchWidgetState extends State<SearchWidget> {
                 return const Center(
                   child: Text("Произошла ошибка"),
                 );
+              } else if (state is SearchWidgetInitial) {
+                controller.clear();
+                return const SizedBox.shrink();
               }
               return const SizedBox.shrink();
             },

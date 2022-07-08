@@ -4,23 +4,24 @@ import 'package:weather_app/data/future_weather_model/weather_list.dart';
 
 import '../city_list_model/weather_city_list.dart';
 
-abstract class Repository {
-  Future<WeatherDTO> loadCurrentWeatherData();
+abstract class RepositoryRemote {
+  Future<WeatherDTO> loadCurrentWeatherData(String lat, String lon);
 
-  Future<WeatherList> loadFutureWeatherData();
+  Future<WeatherList> loadFutureWeatherData(String lat, String lon);
 
   Future<WeatherCityList> getCityList(String name);
 }
 
-class WeatherRepository implements Repository {
+class WeatherRepositoryRemote implements RepositoryRemote {
   var dio = Dio();
 
   @override
-  Future<WeatherDTO> loadCurrentWeatherData() async {
+  Future<WeatherDTO> loadCurrentWeatherData(String lat, String lon) async {
     final response = await dio.get(
       "https://api.openweathermap.org/data/2.5/weather",
       queryParameters: {
-        "q": "Krasnodar",
+        "lat": lat,
+        "lon": lon,
         "appid": "352f72427a922105287e644be8d9dadc",
         "lang": "ru",
         "units": "metric"
@@ -31,11 +32,12 @@ class WeatherRepository implements Repository {
   }
 
   @override
-  Future<WeatherList> loadFutureWeatherData() async {
+  Future<WeatherList> loadFutureWeatherData(String lat, String lon) async {
     final response = await dio.get(
         "https://api.openweathermap.org/data/2.5/forecast",
         queryParameters: {
-          "q": "Krasnodar",
+          "lat": lat,
+          "lon": lon,
           "appid": "352f72427a922105287e644be8d9dadc",
           "lang": "ru",
           "units": "metric",
@@ -63,11 +65,11 @@ class WeatherRepository implements Repository {
     } catch (e) {
       return exceptionList;
     }
-    print(response.data);
     var cityList = WeatherCityList.fromJson(response.data);
     return cityList;
   }
 
 //"https://api.openweathermap.org/data/2.5/weather?q=London&appid=352f72427a922105287e644be8d9dadc&lang=ru&units=metric"
+//https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 
 }
