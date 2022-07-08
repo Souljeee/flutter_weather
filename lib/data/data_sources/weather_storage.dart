@@ -4,7 +4,16 @@ class WeatherStorage {
   WeatherStorage._();
   static WeatherStorage? _instance;
   final List<Weather> _weatherList = [
-    Weather("Moscow", 30, "Sunny", "RU", "30.1", "30.1", false),
+    Weather("Краснодар", 20, "солнечно", "ru", "34.1", "26.2", false),
+    Weather("Калуга", 20, "солнечно", "ru", "34.1", "26.2", false),
+    Weather("Воронеж", 20, "солнечно", "ru", "34.1", "26.2", true),
+    Weather("Гремячинск", 20, "солнечно", "ru", "34.1", "26.2", false),
+    Weather("Абакан", 20, "солнечно", "ru", "34.1", "26.2", false),
+    Weather("Бирск", 20, "солнечно", "ru", "34.1", "26.2", false),
+    Weather("Казань", 20, "солнечно", "ru", "34.1", "26.2", true),
+    Weather("Жигулевск", 20, "солнечно", "ru", "34.1", "26.2", false),
+    Weather("Елабуга", 20, "солнечно", "ru", "34.1", "26.2", true),
+    Weather("Барнаул", 20, "солнечно", "ru", "34.1", "26.2", true),
   ];
 
   void addWeather(Weather weather) {

@@ -24,7 +24,7 @@ class SearchCubit extends Cubit<SearchState> {
     emit(SearchSuccess(sortFavourite(list)));
   }
 
-  List<Weather> getAllWeather() => _repositoryLocal.getAll();
+  List<Weather> getAllWeather() => sortFavourite(_repositoryLocal.getAll());
 
   List<Weather> sortFavourite(List<Weather> weather) {
     final List<Weather> listFavourite =
