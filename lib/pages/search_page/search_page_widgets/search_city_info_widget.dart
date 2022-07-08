@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../cubit/search_widget/search_widget_cubit.dart';
+import '../../../cubit/search_field/search_field_cubit.dart';
 import '../../../data/current_weather_model/weather.dart';
 
 class SearchCityInfo extends StatelessWidget {
   final Weather item;
+  final VoidCallback onTap;
 
-  const SearchCityInfo({Key? key, required this.item}) : super(key: key);
+  const SearchCityInfo({Key? key, required this.item, required this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

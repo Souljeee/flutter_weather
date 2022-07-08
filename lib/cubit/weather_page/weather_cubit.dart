@@ -2,11 +2,11 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:weather_app/data/data_sources/repository_remote.dart';
 
-import '../data/current_weather_model/weather.dart';
-import '../data/current_weather_model/weather_dto.dart';
-import '../data/future_weather_model/future_weather.dart';
-import '../data/future_weather_model/weather_future_dto.dart';
-import '../data/future_weather_model/weather_list.dart';
+import '../../data/current_weather_model/weather.dart';
+import '../../data/current_weather_model/weather_dto.dart';
+import '../../data/future_weather_model/future_weather.dart';
+import '../../data/future_weather_model/weather_future_dto.dart';
+import '../../data/future_weather_model/weather_list.dart';
 
 part 'weather_state.dart';
 
@@ -26,8 +26,6 @@ class WeatherCubit extends Cubit<WeatherState> {
         repository.loadFutureWeatherData(lat, lon)
       ]);
 
-      final WeatherDTO currentResponse = responses.first;
-
       weather = _convertToWeather(responses[0] as WeatherDTO);
 
       weatherList = (responses[1] as WeatherList)
@@ -45,13 +43,13 @@ class WeatherCubit extends Cubit<WeatherState> {
 
   Weather _convertToWeather(WeatherDTO response) {
     return Weather(
-      response.name,
-      response.main.temp.round(),
-      response.weatherInfo[0].description,
-      response.country.country,
-      response.coordinates.lat.toString(),
-      response.coordinates.lon.toString(),
-    );
+        response.name,
+        response.main.temp.round(),
+        response.weatherInfo[0].description,
+        response.country.country,
+        response.coordinates.lat.toString(),
+        response.coordinates.lon.toString(),
+        false);
   }
 
   FutureWeatherInfo _convertToFutureWeather(WeatherFutureDTO response) {

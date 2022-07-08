@@ -68,8 +68,4 @@ class WeatherRepositoryRemote implements RepositoryRemote {
     var cityList = WeatherCityList.fromJson(response.data);
     return cityList;
   }
-
-//"https://api.openweathermap.org/data/2.5/weather?q=London&appid=352f72427a922105287e644be8d9dadc&lang=ru&units=metric"
-//https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-
 }

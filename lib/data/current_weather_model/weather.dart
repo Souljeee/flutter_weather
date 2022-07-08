@@ -5,13 +5,15 @@ class Weather {
   final String country;
   final String lat;
   final String lon;
+  bool isFavourite;
 
-  const Weather(
+  Weather(
     this.cityName,
     this.temperature,
     this.description,
     this.country,
     this.lat,
     this.lon,
+    this.isFavourite,
   );
 }

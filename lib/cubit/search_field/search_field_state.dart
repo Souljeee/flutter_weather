@@ -1,4 +1,4 @@
-part of 'search_widget_cubit.dart';
+part of 'search_field_cubit.dart';
 
 @immutable
 abstract class SearchWidgetState {

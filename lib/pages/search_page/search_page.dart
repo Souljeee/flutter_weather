@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/cubit/search_widget/search_widget_cubit.dart';
+import 'package:weather_app/cubit/search_field/search_field_cubit.dart';
 import 'package:weather_app/data/data_sources/repository_local.dart';
 import 'package:weather_app/data/data_sources/repository_remote.dart';
 import 'package:weather_app/data/data_sources/weather_storage.dart';
@@ -20,7 +20,7 @@ class SearchPage extends StatelessWidget {
       create: (context) => SearchCubit(
         WeatherRepositoryRemote(),
         WeatherLocalRepository(
-          WeatherStorage(),
+          WeatherStorage.getInstance(),
         ),
       ),
       child: const _SearchPageContent(),
@@ -36,9 +36,17 @@ class _SearchPageContent extends StatefulWidget {
 }
 
 class _SearchPageContentState extends State<_SearchPageContent> {
+  var weatherList;
+  var searchCubit;
+  @override
+  void initState() {
+    searchCubit = BlocProvider.of<SearchCubit>(context);
+    weatherList = searchCubit.getAllWeather();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final searchCubit = BlocProvider.of<SearchCubit>(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -49,44 +57,43 @@ class _SearchPageContentState extends State<_SearchPageContent> {
               BlocBuilder<SearchCubit, SearchState>(
                 builder: (context, state) {
                   if (state is SearchSuccess) {
-                    final weatherList = state.cityWeatherList;
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: weatherList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 8, right: 8, bottom: 8),
-                            child: Dismissible(
-                              background: Container(
-                                color: Colors.red,
-                              ),
-                              onDismissed: (DismissDirection direction) {
-                                setState(() {
-                                  weatherList.removeAt(index);
-                                });
-                              },
-                              key: UniqueKey(),
-                              child: WeatherCard(
-                                item: weatherList[index],
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) => WeatherPage(
-                                        lat: weatherList[index].lat,
-                                        lon: weatherList[index].lon,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
+                    weatherList = state.cityWeatherList;
                   }
-                  return const SizedBox.shrink();
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: weatherList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                              left: 8, right: 8, bottom: 8),
+                          child: Dismissible(
+                            background: Container(
+                              color: Colors.red,
+                            ),
+                            onDismissed: (DismissDirection direction) {
+                              setState(() {
+                                weatherList.removeAt(index);
+                              });
+                            },
+                            key: UniqueKey(),
+                            child: WeatherCard(
+                              item: weatherList[index],
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => WeatherPage(
+                                      lat: weatherList[index].lat,
+                                      lon: weatherList[index].lon,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             ],
@@ -111,7 +118,7 @@ class _SearchPageContentState extends State<_SearchPageContent> {
                   create: (context) => SearchWidgetCubit(
                     WeatherRepositoryRemote(),
                     WeatherLocalRepository(
-                      WeatherStorage(),
+                      WeatherStorage.getInstance(),
                     ),
                     searchCubit,
                   ),

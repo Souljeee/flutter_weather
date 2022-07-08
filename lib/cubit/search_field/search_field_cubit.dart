@@ -10,7 +10,7 @@ import '../../data/data_sources/repository_local.dart';
 import '../../data/data_sources/repository_remote.dart';
 import '../search_page/search_cubit.dart';
 
-part 'search_widget_state.dart';
+part 'search_field_state.dart';
 
 class SearchWidgetCubit extends Cubit<SearchWidgetState> {
   Timer? _debounce;
@@ -49,18 +49,18 @@ class SearchWidgetCubit extends Cubit<SearchWidgetState> {
 
   void putWeatherIntoStorage(Weather weather) {
     repositoryLocal.putWeather(weather);
-    searchPageCubit.updateCityList(repositoryLocal.getAll());
+    searchPageCubit.updateCityList();
     emit(SearchWidgetInitial());
   }
 
   Weather _convertToWeather(WeatherDTO response) {
     return Weather(
-      response.name,
-      response.main.temp.round(),
-      response.weatherInfo[0].description,
-      response.country.country,
-      response.coordinates.lat.toString(),
-      response.coordinates.lon.toString(),
-    );
+        response.name,
+        response.main.temp.round(),
+        response.weatherInfo[0].description,
+        response.country.country,
+        response.coordinates.lat.toString(),
+        response.coordinates.lon.toString(),
+        false);
   }
 }

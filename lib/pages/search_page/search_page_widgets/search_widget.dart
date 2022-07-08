@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_app/cubit/search_widget/search_widget_cubit.dart';
+import 'package:weather_app/cubit/search_field/search_field_cubit.dart';
 import 'package:weather_app/pages/search_page/search_page_widgets/search_city_info_widget.dart';
 
 import '../../../data/current_weather_model/weather.dart';
@@ -19,10 +19,16 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   final TextEditingController controller = TextEditingController();
   Timer? _debounce;
+  final search = FocusNode();
+  var searchCubit;
+  @override
+  void initState() {
+    searchCubit = BlocProvider.of<SearchWidgetCubit>(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final searchCubit = BlocProvider.of<SearchWidgetCubit>(context);
     return SizedBox(
       height: 300,
       child: Column(
@@ -31,6 +37,9 @@ class _SearchWidgetState extends State<SearchWidget> {
             textInputAction: TextInputAction.search,
             onChanged: (text) {
               searchCubit.onSearchChanged(text);
+            },
+            onSubmitted: (_) {
+              search.unfocus();
             },
             decoration: const InputDecoration(
               isDense: true,
@@ -61,7 +70,13 @@ class _SearchWidgetState extends State<SearchWidget> {
                       ),
                       itemCount: cityList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return SearchCityInfo(item: cityList[index]);
+                        return SearchCityInfo(
+                          item: cityList[index],
+                          onTap: () {
+                            search.unfocus();
+                            searchCubit.putWeatherIntoStorage(cityList[index]);
+                          },
+                        );
                       },
                     ),
                   ),

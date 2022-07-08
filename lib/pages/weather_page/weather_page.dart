@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../cubit/weather_cubit.dart';
+import '../../cubit/weather_page/weather_cubit.dart';
 import '../../data/data_sources/repository_remote.dart';
 import '../../data/future_weather_model/future_weather.dart';
 import 'weather_page_widgets/weather_item_horizontal_widget.dart';
@@ -85,9 +85,13 @@ class _WeatherPageContentState extends State<_WeatherPageContent> {
               ),
             );
           } else if (state is WeatherError) {
-            return Center(child: Text("Error"));
+            return const Center(
+              child: Text("Error"),
+            );
           } else if (state is WeatherLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
           return Container();
         },
